@@ -1,38 +1,48 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
-
-#include "RandomGenerator.h"
+#include <ctime>
+#include <iostream>
+#include <random>
 
 using namespace std;
 
-vector<int> numbers;
+vector<unsigned long> numbers;
 
-const int maxRange = 100;
+const unsigned long maxRange = 1e6;
 
-void insertRandomNumber(int max) {
-	numbers.push_back(RandomGenerator::randomNumber(max));
+/* Seed */
+std::random_device rd;
+
+/* Random number generator */
+std::default_random_engine generator(rd());
+
+/* Distribution on which to apply the generator */
+std::uniform_int_distribution<long long unsigned> distribution(0, 0xFFFFFFFFFFFFFFFF);
+
+void insertRandomNumber(long number) {
+	numbers.push_back(distribution(generator) % maxRange);
 }
-
 
 int main() {
 
-	vector<int> v(maxRange);
+	vector<long> v(maxRange);
 
-	
+	for_each(v.begin(), v.end(), insertRandomNumber);
 
-	RandomGenerator::defineNewSeed();
+	time_t start, end;
 
-	// fill the array with 10 five times 
-	//v.assign(10, RandomGenerator::randomNumber(100));
+	double diff;
 
-	for_each(v.begin(), v.end(), bind(insertRandomNumber, maxRange));
+	time(&start);
 
-	cout << "The vector elements are: ";
-	cout << numbers.size();
-	for (int i = 0; i < numbers.size(); i++)
-		cout << numbers[i] << " ";
+	std::sort(numbers.begin(), numbers.end());
 
+	time(&end);
+
+	diff = difftime(end, start);
+
+	cout << "Duration in sorting with 1 thread : " << diff << " seconds" << endl;
 
 	cin.get();
 
