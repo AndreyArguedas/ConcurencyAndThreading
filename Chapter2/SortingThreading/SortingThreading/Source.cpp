@@ -1,15 +1,13 @@
-#include <vector>
-#include <algorithm>
 #include <functional>
 #include <ctime>
-#include <iostream>
 #include <random>
+#include "SortingThreaderDistributor.h"
 
 using namespace std;
 
 vector<unsigned long> numbers;
 
-const unsigned long maxRange = 1e6;
+const unsigned long maxRange = 1e2;
 
 /* Seed */
 std::random_device rd;
@@ -30,7 +28,7 @@ int main() {
 
 	for_each(v.begin(), v.end(), insertRandomNumber);
 
-	time_t start, end;
+	/*time_t start, end;
 
 	double diff;
 
@@ -42,7 +40,9 @@ int main() {
 
 	diff = difftime(end, start);
 
-	cout << "Duration in sorting with 1 thread : " << diff << " seconds" << endl;
+	cout << "Duration in sorting with 1 thread : " << diff << " seconds" << endl;*/
+
+	SortingThreaderDistributor().SortCollectionWithThreads(numbers, 4);
 
 	cin.get();
 
