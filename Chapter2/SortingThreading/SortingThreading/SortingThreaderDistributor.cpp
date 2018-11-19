@@ -5,7 +5,7 @@ void SortingThreaderDistributor::SortCollectionWithThreads(std::vector<unsigned 
 	unsigned long vectorDivision = elements.size() / threadsQuantity;
 	unsigned long index = 0;
 
-	std::vector<std::vector<unsigned long>> subVectors(threadsQuantity, std::vector<unsigned long>(vectorDivision));
+	std::vector<std::vector<unsigned long>> subVectors(threadsQuantity, std::vector<unsigned long>(elements.size()));
 
 	for (auto & subVec : subVectors) {
 		
