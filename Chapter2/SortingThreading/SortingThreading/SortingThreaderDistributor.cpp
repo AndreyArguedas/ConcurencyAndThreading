@@ -13,10 +13,44 @@ void SortingThreaderDistributor::SortCollectionWithThreads(std::vector<unsigned 
 
 		index += vectorDivision;
 
+		subVec.erase(std::remove(subVec.begin(), subVec.end(), 0), subVec.end()); //Delete every 0 in the vector
+
 	}
-	
-	for (auto n : subVectors[1]) {
-		std::cout << n << " ";
+
+	/* Create a vector of threads and define wich function will execute */
+
+	std::vector<std::thread> threads;
+
+	time_t start, end;
+
+	double diff;
+
+	time(&start);
+
+	for (unsigned i = 0; i < threadsQuantity; i++) {
+		threads.emplace_back(std::thread(SortingThreaderDistributor::sorting, &subVectors[i]));
 	}
-	
+
+	for (auto & t : threads) {
+		t.join();
+	}
+
+	time(&end);
+
+	diff = difftime(end, start);
+
+	cout << "Duration in sorting with "<< threadsQuantity << " threads: " << diff << " seconds" << endl;
+
+	std::vector<unsigned long> elementsSorted;
+
+	for (auto & subVec : subVectors) {
+
+		elementsSorted.insert(elementsSorted.end(), subVec.begin(), subVec.end());
+	}
+
+	for_each(elementsSorted.begin(), elementsSorted.end(), [](unsigned long i) -> void {cout << i << " "; });
+}
+
+void SortingThreaderDistributor::sorting(std::vector<unsigned long> *subVector) {
+	std::sort(subVector->begin(), subVector->end());
 }

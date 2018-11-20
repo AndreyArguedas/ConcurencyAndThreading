@@ -3,11 +3,9 @@
 #include <random>
 #include "SortingThreaderDistributor.h"
 
-using namespace std;
-
 vector<unsigned long> numbers;
 
-const unsigned long maxRange = 1e2;
+const unsigned long maxRange = 1e5;
 
 /* Seed */
 std::random_device rd;
@@ -43,6 +41,8 @@ int main() {
 	cout << "Duration in sorting with 1 thread : " << diff << " seconds" << endl;*/
 
 	SortingThreaderDistributor().SortCollectionWithThreads(numbers, 4);
+
+
 
 	cin.get();
 
