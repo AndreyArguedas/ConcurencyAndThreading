@@ -5,7 +5,7 @@
 
 vector<unsigned long> numbers;
 
-const unsigned long maxRange = 1e5;
+const unsigned long maxRange = 1e7;
 
 /* Seed */
 std::random_device rd;

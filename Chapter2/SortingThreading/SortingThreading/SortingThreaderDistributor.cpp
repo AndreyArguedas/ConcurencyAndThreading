@@ -48,7 +48,7 @@ void SortingThreaderDistributor::SortCollectionWithThreads(std::vector<unsigned 
 		elementsSorted.insert(elementsSorted.end(), subVec.begin(), subVec.end());
 	}
 
-	for_each(elementsSorted.begin(), elementsSorted.end(), [](unsigned long i) -> void {cout << i << " "; });
+	//for_each(elementsSorted.begin(), elementsSorted.end(), [](unsigned long i) -> void {cout << i << " "; });
 }
 
 void SortingThreaderDistributor::sorting(std::vector<unsigned long> *subVector) {
